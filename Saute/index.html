@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAUTE - Breakfast & Brunch Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* SAUTE WARM COLOR PALETTE */
+            --primary-bg: #F5E6D3;
+            --secondary-bg: #FAFAF8;
+            --accent-gold: #D4A574;
+            --accent-orange: #E8B4A0;
+            --text-dark: #3D2817;
+            --text-secondary: #6B5A4A;
+            --border-color: #E8D5C4;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--secondary-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(61, 40, 23, 0.15);
+        }
+
+        /* HEADER WITH LOGO SPACE */
+        .header {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-orange) 100%);
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .logo-area {
+            height: 100px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 56px;
+            font-weight: 800;
+            letter-spacing: 4px;
+            font-family: 'Playfair Display', serif;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-area img {
+            max-height: 100px;
+            width: auto;
+        }
+
+        .restaurant-name {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 3px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .tagline {
+            font-size: 15px;
+            opacity: 0.98;
+            font-style: italic;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .location {
+            font-size: 13px;
+            opacity: 0.95;
+            letter-spacing: 0.5px;
+        }
+
+        /* MENU TITLE */
+        .menu-title {
+            text-align: center;
+            padding: 35px 20px 25px;
+            border-bottom: 3px solid var(--accent-gold);
+            background: var(--secondary-bg);
+        }
+
+        .menu-title h1 {
+            font-size: 32px;
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-orange);
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            font-weight: 800;
+        }
+
+        .divider {
+            width: 80px;
+            height: 3px;
+            background: var(--accent-gold);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        .menu-subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-style: italic;
+            margin-top: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        /* MENU CONTENT */
+        .menu-content {
+            padding: 35px 25px;
+        }
+
+        .category {
+            margin-bottom: 40px;
+        }
+
+        .category:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 22px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+            border-radius: 6px;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-item {
+            margin-bottom: 22px;
+            padding: 18px;
+            background: linear-gradient(to right, rgba(212, 165, 116, 0.06), transparent);
+            border-left: 4px solid var(--accent-gold);
+            border-radius: 6px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-item:hover {
+            background: linear-gradient(to right, rgba(212, 165, 116, 0.12), transparent);
+            transform: translateX(6px);
+            box-shadow: 0 4px 12px rgba(61, 40, 23, 0.08);
+        }
+
+        .item-name {
+            font-weight: 700;
+            font-size: 17px;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.5px;
+        }
+
+        .item-description {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .item-price {
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--accent-orange);
+            text-align: right;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.5px;
+        }
+
+        /* IMAGE GRID */
+        .image-section {
+            margin-top: 45px;
+            padding-top: 35px;
+            border-top: 3px solid var(--border-color);
+        }
+
+        .image-section .category-title {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .image-placeholder {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-orange) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 13px;
+            text-align: center;
+            padding: 15px;
+            font-weight: 600;
+            box-shadow: 0 6px 15px rgba(61, 40, 23, 0.12);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .image-placeholder:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(61, 40, 23, 0.18);
+        }
+
+        .image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 25px 20px;
+            background: linear-gradient(135deg, var(--primary-bg), var(--secondary-bg));
+            border-top: 3px solid var(--accent-gold);
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .contact-info {
+            margin: 12px 0;
+            font-weight: 600;
+            color: var(--text-dark);
+            letter-spacing: 0.3px;
+        }
+
+        .contact-info strong {
+            color: var(--accent-orange);
+        }
+
+        .qr-section {
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .qr-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .tagline-footer {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 12px;
+            }
+
+            .header {
+                padding: 30px 15px;
+            }
+
+            .logo-area {
+                height: 80px;
+                font-size: 44px;
+                letter-spacing: 3px;
+                margin-bottom: 15px;
+            }
+
+            .restaurant-name {
+                font-size: 28px;
+                letter-spacing: 2px;
+                margin-bottom: 10px;
+            }
+
+            .menu-title h1 {
+                font-size: 26px;
+                letter-spacing: 1.5px;
+            }
+
+            .menu-content {
+                padding: 25px 18px;
+            }
+
+            .category-title {
+                font-size: 18px;
+                padding: 10px 14px;
+                letter-spacing: 1px;
+            }
+
+            .menu-item {
+                padding: 15px;
+                margin-bottom: 18px;
+            }
+
+            .item-name {
+                font-size: 15px;
+            }
+
+            .item-description {
+                font-size: 12px;
+            }
+
+            .image-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            .header {
+                padding: 25px 12px;
+            }
+
+            .logo-area {
+                height: 70px;
+                font-size: 36px;
+                letter-spacing: 2px;
+            }
+
+            .restaurant-name {
+                font-size: 24px;
+            }
+
+            .tagline {
+                font-size: 13px;
+            }
+
+            .location {
+                font-size: 11px;
+            }
+
+            .menu-title {
+                padding: 25px 15px 18px;
+            }
+
+            .menu-title h1 {
+                font-size: 22px;
+                letter-spacing: 1px;
+            }
+
+            .menu-content {
+                padding: 20px 15px;
+            }
+
+            .category {
+                margin-bottom: 30px;
+            }
+
+            .category-title {
+                font-size: 16px;
+                padding: 9px 12px;
+            }
+
+            .menu-item {
+                padding: 12px;
+                margin-bottom: 15px;
+                border-left: 3px solid var(--accent-gold);
+            }
+
+            .item-name {
+                font-size: 14px;
+                margin-bottom: 6px;
+            }
+
+            .item-description {
+                font-size: 11px;
+                margin-bottom: 8px;
+            }
+
+            .item-price {
+                font-size: 14px;
+            }
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* SCROLLBAR STYLING */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-gold);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-orange);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER WITH LOGO -->
+        <div class="header">
+            <div class="logo-area">S Λ U T É</div>
+            <div class="restaurant-name">SAUTE</div>
+            <div class="tagline">"Where breakfast meets indulgence"</div>
+            <div class="location">3rd Floor, CCA93, Sector C, Phase 5, DHA, Lahore | 0336-7272883</div>
+        </div>
+
+        <!-- MENU TITLE -->
+        <div class="menu-title">
+            <h1>ALL DAY BREAKFAST & BRUNCH</h1>
+            <div class="divider"></div>
+            <p class="menu-subtitle">Fresh ingredients. Thoughtful preparation. Pure indulgence.</p>
+        </div>
+
+        <!-- MENU CONTENT -->
+        <div class="menu-content">
+            
+            <!-- EGG CATEGORY -->
+            <div class="category">
+                <div class="category-title">EGGS</div>
+
+                <div class="menu-item">
+                    <div class="item-name">OMELETTE</div>
+                    <div class="item-description">3 eggs omelette with hash brown, grilled tomato, fresh salad & side of bread</div>
+                    <div class="item-price">PKR 1,275</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-name">PASKITORI</div>
+                    <div class="item-description">Mediterranean pasta omelette with fresh herbs and premium cheese blend</div>
+                    <div class="item-price">PKR 1,725</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-name">PEPPERONI & CHEESE</div>
+                    <div class="item-description">Spiced pepperoni with creamy melted cheese in a fluffy omelette</div>
+                    <div class="item-price">PKR 1,645</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-name">MUSHROOMS & CHEESE</div>
+                    <div class="item-description">Sautéed mushrooms with house three-cheese blend</div>
+                    <div class="item-price">PKR 1,445</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-name">PARMESAN SPINACH & MUSHROOM</div>
+                    <div class="item-description">Creamy spinach with mushrooms and aged Parmesan</div>
+                    <div class="item-price">PKR 1,445</div>
+                </div>
+            </div>
+
+            <!-- BENEDICT CATEGORY -->
+            <div class="category">
+                <div class="category-title">BENEDICT</div>
+
+                <div class="menu-item">
+                    <div class="item-name">CLASSIC BENEDICT</div>
+                    <div class="item-description">2 Poached eggs on savory English muffins with hash brown, grilled tomato & seasonal greens</div>
+                    <div class="item-price">PKR 1,545</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-name">SPINACH & MUSHROOM BENEDICT</div>
+                    <div class="item-description">Creamy spinach & mushroom base with perfectly poached eggs</div>
+                    <div class="item-price">PKR 1,945</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-name">SMOKED SALMON BENEDICT</div>
+                    <div class="item-description">Premium smoked salmon with cream cheese & fresh dill</div>
+                    <div class="item-price">PKR 2,255</div>
+                </div>
+            </div>
+
+            <!-- SCRAMBLED CATEGORY -->
+            <div class="category">
+                <div class="category-title">SCRAMBLED</div>
+
+                <div class="menu-item">
+                    <div class="item-name">CLASSIC SCRAMBLE</div>
+                    <div class="item-description">Softly cooked buttery creamy scrambled eggs with potato hash, grilled tomato, seasonal greens & house multi-seed bread</div>
+                    <div class="item-price">PKR 1,275</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-name">CREAM CHEESE & CHIVES</div>
+                    <div class="item-description">Fluffy scrambled eggs with premium cream cheese & fresh chives</div>
+                    <div class="item-price">PKR 1,725</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-name">SMASH AVO & TURKEY BACON</div>
+                    <div class="item-description">Creamy avocado with crispy turkey bacon in buttery scrambled eggs</div>
+                    <div class="item-price">PKR 1,725</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-name">SMOKED SALMON & CREAM CHEESE</div>
+                    <div class="item-description">Premium smoked salmon with silky cream cheese scrambled</div>
+                    <div class="item-price">PKR 2,255</div>
+                </div>
+            </div>
+
+            <!-- SPECIALTY CATEGORY -->
+            <div class="category">
+                <div class="category-title">SPECIALTY</div>
+
+                <div class="menu-item">
+                    <div class="item-name">ENGLISH BREAKFAST</div>
+                    <div class="item-description">2 eggs, 2 hash browns, beef sausages, turkey bacon, baked beans & slice of bread & butter</div>
+                    <div class="item-price">PKR 1,825</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-name">STEAK & EGGS</div>
+                    <div class="item-description">2 eggs sunny side up, French fries, baked beans, grilled tomato, seasoned greens & medium done beef steak slices</div>
+                    <div class="item-price">PKR 3,999</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-name">BAKED EGGS IN SKILLET <span style="color: var(--accent-orange); font-weight: 700;">(GIVE US 30MIN)</span></div>
+                    <div class="item-description">3 eggs omelette baked in skillets with seasonal greens & choice of bread (plain, multiseed, Ciabatta)</div>
+                    <div class="item-price">PKR 1,725</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-name">CHICKEN FRITTATA</div>
+                    <div class="item-description">Grilled chicken, cheese, black olives & fresh Mediterranean herbs</div>
+                    <div class="item-price">PKR 1,445</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-name">CHEESE SOUFFLÉ</div>
+                    <div class="item-description">House blend of three premium cheeses & fresh chives in airy soufflé</div>
+                    <div class="item-price">PKR 1,275</div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-name">SHAKSHUKA</div>
+                    <div class="item-description">3 sunny side up eggs on our house spicy tomato sauce & crumbled feta</div>
+                    <div class="item-price">PKR 1,445</div>
+                </div>
+            </div>
+
+            <!-- FEATURED DISHES SECTION -->
+            <div class="image-section">
+                <div class="category-title">OUR FEATURED DISHES</div>
+                <p style="text-align: center; color: var(--text-secondary); font-size: 12px; margin-bottom: 20px; font-style: italic;">
+                    Experience our signature breakfast creations, carefully prepared with premium ingredients and presented with flair.
+                </p>
+                <div class="image-grid">
+                    <div class="image-placeholder">
+                        <span>🍳 Omelette<br><small>Fresh & Fluffy</small></span>
+                    </div>
+                    <div class="image-placeholder">
+                        <span>🧀 Pepperoni & Cheese<br><small>Creamy & Spiced</small></span>
+                    </div>
+                    <div class="image-placeholder">
+                        <span>🍄 Mushrooms & Cheese<br><small>Sautéed Premium</small></span>
+                    </div>
+                    <div class="image-placeholder">
+                        <span>🍝 Paskitori<br><small>Mediterranean Blend</small></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <div class="contact-info">
+                📍 <strong>SAUTE</strong> | 3rd Floor, CCA93, Sector C, Phase 5, DHA, Lahore
+            </div>
+            <div class="contact-info">
+                📱 <strong>0336-7272883</strong>
+            </div>
+            <div class="contact-info">
+                🌐 <strong>@saute.pk</strong> | Open 8 AM - 11 PM
+            </div>
+            <div class="qr-section">
+                <p class="qr-text">Scan the QR code at your table to view this menu</p>
+                <p class="tagline-footer">✨ Your perfect breakfast experience starts here ✨</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
